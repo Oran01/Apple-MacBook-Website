@@ -52,6 +52,11 @@ const Showcase = () => {
       setTimeout(() => {
         ScrollTrigger.refresh();
       }, 100);
+
+      // Extra window load fix for production layout bugs
+      window.addEventListener("load", () => {
+        ScrollTrigger.refresh();
+      });
     }
   }, [isTablet]);
 
