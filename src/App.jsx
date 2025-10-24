@@ -41,11 +41,18 @@ gsap.registerPlugin(ScrollTrigger);
 
 const App = () => {
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 500);
+    const refreshTrigger = () => ScrollTrigger.refresh();
 
-    return () => clearTimeout(timeout);
+    // Fallback timeout (in case load event is delayed)
+    const timeout = setTimeout(refreshTrigger, 500);
+
+    // Trigger refresh after all assets are fully loaded
+    window.addEventListener("load", refreshTrigger);
+
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener("load", refreshTrigger);
+    };
   }, []);
 
   return (
