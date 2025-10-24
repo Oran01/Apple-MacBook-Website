@@ -24,7 +24,7 @@
  * ReactDOM.render(<App />, document.getElementById("root"))
  */
 
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "./components/NavBar";
 import Hero from "./components/Hero";
 import ProductViewer from "./components/ProductViewer";
@@ -40,6 +40,21 @@ import Footer from "./components/Footer";
 gsap.registerPlugin(ScrollTrigger);
 
 const App = () => {
+  useEffect(() => {
+    // Refresh GSAP ScrollTrigger when all content (e.g. images, canvas) is ready
+    const handleRefresh = () => {
+      ScrollTrigger.refresh();
+    };
+
+    // Try refreshing after load + a slight delay
+    window.addEventListener("load", handleRefresh);
+    const timeout = setTimeout(handleRefresh, 1500);
+
+    return () => {
+      window.removeEventListener("load", handleRefresh);
+      clearTimeout(timeout);
+    };
+  }, []);
   return (
     <main>
       <NavBar />
