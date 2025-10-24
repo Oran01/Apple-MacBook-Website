@@ -25,6 +25,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useMediaQuery } from "react-responsive";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const Showcase = () => {
   const isTablet = useMediaQuery({ query: "(max-width: 1024px)" });
@@ -45,6 +46,8 @@ const Showcase = () => {
       timeline
         .to(".mask img", { transform: "scale(1.1)" }) // Logo grows slightly
         .to(".content", { opacity: 1, y: 0, ease: "power1.in" }); // Content fades in
+
+      ScrollTrigger.refresh();
     }
   }, [isTablet]);
 
