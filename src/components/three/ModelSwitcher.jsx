@@ -56,7 +56,7 @@ const ModelSwitcher = ({ scale, isMobile }) => {
   const smallMacbookRef = useRef();
   const largeMacbookRef = useRef();
 
-  const SCALE_LARGE_DESKTOP = 0.0;
+  const SCALE_LARGE_DESKTOP = 0.08;
   const SCALE_LARGE_MOBILE = 0.05;
 
   // Determines which MacBook model to display
