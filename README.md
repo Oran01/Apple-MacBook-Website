@@ -37,12 +37,6 @@ Designed for developers and designers who want to explore advanced animation tec
 
 ---
 
-## 🌐 Live Demo
-
-[![Live Demo](https://img.shields.io/badge/Visit_Live_Demo-0A66C2?style=for-the-badge&logo=vercel&logoColor=white)](https://apple-mac-book-website.vercel.app/)
-
----
-
 ### 🔍 Highlights
 
 - ✅ Responsive design

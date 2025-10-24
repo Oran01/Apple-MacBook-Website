@@ -24,7 +24,7 @@
  * ReactDOM.render(<App />, document.getElementById("root"))
  */
 
-import React, { useEffect } from "react";
+import React from "react";
 import NavBar from "./components/NavBar";
 import Hero from "./components/Hero";
 import ProductViewer from "./components/ProductViewer";
@@ -40,38 +40,6 @@ import Footer from "./components/Footer";
 gsap.registerPlugin(ScrollTrigger);
 
 const App = () => {
-  useEffect(() => {
-    const refreshTrigger = () => {
-      ScrollTrigger.refresh();
-      console.log("✅ ScrollTrigger refreshed after full load");
-    };
-
-    const handleImagesLoaded = () => {
-      const allImages = Array.from(document.images);
-      if (allImages.every((img) => img.complete)) {
-        refreshTrigger();
-      } else {
-        let loaded = 0;
-        allImages.forEach((img) => {
-          img.addEventListener("load", () => {
-            loaded++;
-            if (loaded === allImages.length) refreshTrigger();
-          });
-          img.addEventListener("error", () => {
-            loaded++;
-            if (loaded === allImages.length) refreshTrigger();
-          });
-        });
-      }
-    };
-
-    window.addEventListener("load", handleImagesLoaded);
-
-    return () => {
-      window.removeEventListener("load", handleImagesLoaded);
-    };
-  }, []);
-
   return (
     <main>
       <NavBar />
