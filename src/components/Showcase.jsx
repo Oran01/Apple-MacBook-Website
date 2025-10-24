@@ -22,18 +22,16 @@
  * <Showcase />
  */
 
-import { useLayoutEffect } from "react";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useMediaQuery } from "react-responsive";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Showcase = () => {
   const isTablet = useMediaQuery({ query: "(max-width: 1024px)" });
 
-  useLayoutEffect(() => {
+  useGSAP(() => {
     if (!isTablet) {
+      // Create scroll-pinned animation for desktop only
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: "#showcase",
@@ -45,18 +43,8 @@ const Showcase = () => {
       });
 
       timeline
-        .to(".mask img", { transform: "scale(1.1)" })
-        .to(".content", { opacity: 1, y: 0, ease: "power1.in" });
-
-      // Delay refresh to ensure DOM is ready
-      setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 100);
-
-      // Extra window load fix for production layout bugs
-      window.addEventListener("load", () => {
-        ScrollTrigger.refresh();
-      });
+        .to(".mask img", { transform: "scale(1.1)" }) // Logo grows slightly
+        .to(".content", { opacity: 1, y: 0, ease: "power1.in" }); // Content fades in
     }
   }, [isTablet]);
 
