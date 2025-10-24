@@ -41,17 +41,34 @@ gsap.registerPlugin(ScrollTrigger);
 
 const App = () => {
   useEffect(() => {
-    const refreshTrigger = () => ScrollTrigger.refresh();
+    const refreshTrigger = () => {
+      ScrollTrigger.refresh();
+      console.log("✅ ScrollTrigger refreshed after full load");
+    };
 
-    // Fallback timeout (in case load event is delayed)
-    const timeout = setTimeout(refreshTrigger, 500);
+    const handleImagesLoaded = () => {
+      const allImages = Array.from(document.images);
+      if (allImages.every((img) => img.complete)) {
+        refreshTrigger();
+      } else {
+        let loaded = 0;
+        allImages.forEach((img) => {
+          img.addEventListener("load", () => {
+            loaded++;
+            if (loaded === allImages.length) refreshTrigger();
+          });
+          img.addEventListener("error", () => {
+            loaded++;
+            if (loaded === allImages.length) refreshTrigger();
+          });
+        });
+      }
+    };
 
-    // Trigger refresh after all assets are fully loaded
-    window.addEventListener("load", refreshTrigger);
+    window.addEventListener("load", handleImagesLoaded);
 
     return () => {
-      clearTimeout(timeout);
-      window.removeEventListener("load", refreshTrigger);
+      window.removeEventListener("load", handleImagesLoaded);
     };
   }, []);
 
