@@ -24,7 +24,7 @@
  * ReactDOM.render(<App />, document.getElementById("root"))
  */
 
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "./components/NavBar";
 import Hero from "./components/Hero";
 import ProductViewer from "./components/ProductViewer";
@@ -40,6 +40,14 @@ import Footer from "./components/Footer";
 gsap.registerPlugin(ScrollTrigger);
 
 const App = () => {
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
   return (
     <main>
       <NavBar />
